@@ -24,7 +24,6 @@ public static class DependencyInjection
 
         services.AddDbContext<SuppliersDbContext>(options => options.UseSqlServer(connectionString, sql =>
         {
-            // Retries transient failures (failover, throttling, the container still starting).
             sql.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null);
             sql.MigrationsHistoryTable("__EFMigrationsHistory", SuppliersDbContext.Schema);
         }));

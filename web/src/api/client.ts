@@ -2,7 +2,6 @@ import type { ProblemDetails } from './types'
 
 const baseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/$/, '')
 
-/** An error response from the API, carrying its problem details. */
 export class ApiError extends Error {
   readonly status: number
   readonly problem: ProblemDetails
@@ -18,7 +17,7 @@ export class ApiError extends Error {
     return this.problem.code
   }
 
-  /** Field errors keyed by the API's JSON path, e.g. "services[0].price". */
+  // keys look like "services[0].price"
   get fieldErrors(): Record<string, string[]> {
     return this.problem.errors ?? {}
   }

@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30_000,
-      // Retrying a 4xx will not change the answer; retry network and server errors only.
+      // don't retry 4xx
       retry: (failureCount, error) =>
         failureCount < 2 && !(error instanceof ApiError && error.status >= 400 && error.status < 500),
     },

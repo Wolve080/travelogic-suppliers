@@ -6,7 +6,6 @@ using Travelogic.Suppliers.Application.Suppliers;
 
 namespace Travelogic.Suppliers.Api.Controllers;
 
-/// <summary>Suppliers: the businesses that provide tourism services.</summary>
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/suppliers")]

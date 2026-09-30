@@ -3,11 +3,6 @@ using Travelogic.Suppliers.Domain.Suppliers.Events;
 
 namespace Travelogic.Suppliers.Domain.Suppliers;
 
-/// <summary>
-/// A business that provides tourism services, e.g. a hotel offering overnight accommodation or a
-/// safari operator offering a half day game drive. The supplier is the aggregate root: its services
-/// can only be changed through it, which lets it enforce rules such as unique service names.
-/// </summary>
 public sealed class Supplier : AggregateRoot, IAuditable
 {
     public const int NameMaxLength = 200;
@@ -27,7 +22,7 @@ public sealed class Supplier : AggregateRoot, IAuditable
         IsActive = true;
     }
 
-    // Required by EF Core.
+    // EF Core
     private Supplier() { }
 
     public string Name { get; private set; } = null!;
@@ -53,7 +48,7 @@ public sealed class Supplier : AggregateRoot, IAuditable
         ArgumentNullException.ThrowIfNull(contact);
         ArgumentNullException.ThrowIfNull(address);
 
-        // Version 7 GUIDs are time ordered, so inserts append to the clustered index instead of fragmenting it.
+        // v7 guids are time ordered so they don't fragment the clustered index
         var supplier = new Supplier(
             Guid.CreateVersion7(),
             Guard.Required(name, "Supplier name", NameMaxLength),
@@ -133,7 +128,6 @@ public sealed class Supplier : AggregateRoot, IAuditable
 
     public SupplierService? FindService(Guid serviceId) => _services.Find(s => s.Id == serviceId);
 
-    /// <summary>Records that the supplier is being removed so downstream services can react.</summary>
     public void MarkDeleted() => Raise(new SupplierDeleted(Id, Name));
 
     private void EnsureServiceNameIsUnique(string? name, Guid? excludeServiceId)

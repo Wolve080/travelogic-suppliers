@@ -1,6 +1,4 @@
-// Mirrors the Supplier service's v1 contract (see /openapi/v1.json).
-// Enum-like fields are plain strings: their allowed values come from /reference-data at runtime,
-// so the service can add a supplier type without a front end release.
+// See /openapi/v1.json. Enum values come from /reference-data.
 
 export interface Address {
   line1: string | null
@@ -107,7 +105,6 @@ export interface ReferenceData {
   pricingUnits: Option[]
 }
 
-/** RFC 9457 problem details, as returned by the API for every error. */
 export interface ProblemDetails {
   type?: string
   title?: string

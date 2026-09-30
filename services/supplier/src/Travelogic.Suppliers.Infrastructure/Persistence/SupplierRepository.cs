@@ -28,7 +28,6 @@ internal sealed class SupplierRepository(SuppliersDbContext db) : ISupplierRepos
             return false;
         }
 
-        // EF compares the original value with the row's current rowversion in the UPDATE's WHERE clause.
         db.Entry(supplier).Property<byte[]>(SuppliersDbContext.VersionProperty).OriginalValue = buffer.ToArray();
         return true;
     }

@@ -27,18 +27,20 @@ if (app.Configuration.GetValue("OpenApi:Enabled", defaultValue: app.Environment.
     app.MapScalarApiReference(options => options
         .WithTitle("Travelogic Supplier Service")
         .AddDocument("v1")
+        .DisableAgent()
+        .DisableMcp()
+        .HideDeveloperTools()
         .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Fetch));
     app.MapGet("/", () => Results.Redirect("/scalar")).ExcludeFromDescription();
 }
 
 app.MapControllers();
 
-// Liveness: the process is up. Readiness: it can reach its database and should receive traffic.
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false, ResponseWriter = HealthCheckResponseWriter.WriteAsync });
 app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready"), ResponseWriter = HealthCheckResponseWriter.WriteAsync });
 
 await app.Services.InitialiseDatabaseAsync();
 await app.RunAsync();
 
-/// <summary>Exposed for WebApplicationFactory in the integration tests.</summary>
+// for WebApplicationFactory
 public partial class Program;

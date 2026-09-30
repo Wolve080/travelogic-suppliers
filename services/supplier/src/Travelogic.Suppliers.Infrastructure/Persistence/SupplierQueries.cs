@@ -5,7 +5,6 @@ using Travelogic.Suppliers.Domain.Suppliers;
 
 namespace Travelogic.Suppliers.Infrastructure.Persistence;
 
-/// <summary>Read side: no tracking, and only the columns each response needs.</summary>
 internal sealed class SupplierQueries(SuppliersDbContext db) : ISupplierQueries
 {
     public async Task<PagedResult<SupplierSummaryResponse>> ListAsync(SupplierListQuery query, CancellationToken cancellationToken)

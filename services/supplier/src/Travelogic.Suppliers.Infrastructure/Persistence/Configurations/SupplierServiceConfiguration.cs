@@ -29,7 +29,6 @@ internal sealed class SupplierServiceConfiguration : IEntityTypeConfiguration<Su
             price.Property(p => p.Currency).HasColumnName("Currency").HasMaxLength(3).IsFixedLength().IsUnicode(false);
         });
 
-        // Service names only need to be unique within their supplier.
         builder.HasIndex(s => new { s.SupplierId, s.Name }).IsUnique();
         builder.HasIndex(s => s.Category);
     }

@@ -10,10 +10,6 @@ public sealed record ReferenceDataResponse(
     IReadOnlyList<Option> ServiceCategories,
     IReadOnlyList<Option> PricingUnits);
 
-/// <summary>
-/// Lookup values for clients to build drop downs, so the UI does not hard code the service's enums
-/// and new values show up without a front end release.
-/// </summary>
 public static partial class ReferenceDataProvider
 {
     public static ReferenceDataResponse Get { get; } = new(

@@ -2,10 +2,6 @@ using System.Diagnostics;
 
 namespace Travelogic.Suppliers.Api.Infrastructure;
 
-/// <summary>
-/// Propagates an <c>X-Correlation-ID</c> across service boundaries. Uses the caller's id when one is
-/// sent (e.g. by an API gateway), otherwise the current trace id, and adds it to every log entry.
-/// </summary>
 internal sealed class CorrelationIdMiddleware(RequestDelegate next, ILogger<CorrelationIdMiddleware> logger)
 {
     public const string HeaderName = "X-Correlation-ID";

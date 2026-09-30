@@ -2,7 +2,6 @@ import { get, useFormContext } from 'react-hook-form'
 import { useReferenceData } from '../../../api/suppliers'
 import { Field, FormSection, Input, Select, TextArea } from '../../../components/form'
 
-/** Supplier details, contact and address sections, shared by the create and edit forms. */
 export function SupplierDetailsFields() {
   const {
     register,

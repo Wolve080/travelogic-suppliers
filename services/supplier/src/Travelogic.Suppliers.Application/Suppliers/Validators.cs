@@ -3,9 +3,6 @@ using Travelogic.Suppliers.Domain.Suppliers;
 
 namespace Travelogic.Suppliers.Application.Suppliers;
 
-// Validators give the caller every problem with a request at once, with field paths the UI can bind
-// to. The domain still guards its own invariants; this is the friendly first line.
-
 public sealed class AddressValidator : AbstractValidator<AddressDto>
 {
     public AddressValidator()

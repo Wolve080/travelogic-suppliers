@@ -7,13 +7,8 @@ public enum ErrorType
     Conflict,
 }
 
-/// <summary>
-/// An expected failure. Expected failures are returned rather than thrown, so the API layer can map
-/// them to the right HTTP status without the application layer knowing about HTTP.
-/// </summary>
 public sealed record Error(string Code, string Message, ErrorType Type)
 {
-    /// <summary>Field level messages, keyed by property path (e.g. <c>services[0].price</c>).</summary>
     public IReadOnlyDictionary<string, string[]> Details { get; init; } = new Dictionary<string, string[]>();
 
     public static Error Validation(string message, IReadOnlyDictionary<string, string[]>? details = null) =>

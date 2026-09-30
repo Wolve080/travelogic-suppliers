@@ -1,3 +1,2 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- Domain has no dependencies: pure business rules. -->
 </Project>

@@ -4,7 +4,6 @@ using Travelogic.Suppliers.Application.ReferenceData;
 
 namespace Travelogic.Suppliers.Api.Controllers;
 
-/// <summary>Lookup values (supplier types, service categories, pricing units) for building forms.</summary>
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/reference-data")]

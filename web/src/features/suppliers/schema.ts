@@ -3,9 +3,6 @@ import { z } from 'zod'
 import { ApiError } from '../../api/client'
 import type { CreateSupplierRequest, ServiceRequest, Supplier, UpdateSupplierRequest } from '../../api/types'
 
-// Client side rules mirror the API's validators for fast feedback. The API stays the authority:
-// its field errors are mapped back onto the form by applyServerErrors.
-
 const text = (label: string, max: number) =>
   z.string().trim().max(max, `${label} must be ${max} characters or fewer`)
 const required = (label: string, max: number) => text(label, max).min(1, `${label} is required`)
@@ -172,10 +169,7 @@ export function toServiceValues(service: ServiceRequest): ServiceFormValues {
   }
 }
 
-/**
- * Puts the API's field errors on the matching form fields ("services[0].price" -> "services.0.price")
- * and returns a message for the form as a whole.
- */
+ // "services[0].price" -> "services.0.price"
 export function applyServerErrors<T extends FieldValues>(error: unknown, setError: UseFormSetError<T>): string {
   if (!(error instanceof ApiError)) {
     return 'Something went wrong. Please try again.'

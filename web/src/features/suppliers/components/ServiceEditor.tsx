@@ -13,7 +13,6 @@ interface ServiceEditorProps {
   onCancel: () => void
 }
 
-/** Stand-alone form for adding a service to, or editing a service of, an existing supplier. */
 export function ServiceEditor({ initial, submitLabel, onSubmit, onCancel }: ServiceEditorProps) {
   const form = useForm<ServiceFormValues>({
     resolver: zodResolver(serviceSchema),

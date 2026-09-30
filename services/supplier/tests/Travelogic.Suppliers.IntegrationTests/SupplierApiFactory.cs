@@ -7,10 +7,6 @@ using Testcontainers.MsSql;
 
 namespace Travelogic.Suppliers.IntegrationTests;
 
-/// <summary>
-/// Hosts the real API in memory against a real SQL Server in a throwaway container, so the tests
-/// cover EF Core mappings, migrations, constraints and rowversion behaviour, not a fake.
-/// </summary>
 public sealed class SupplierApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     public static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web)

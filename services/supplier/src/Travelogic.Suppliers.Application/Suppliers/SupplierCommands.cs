@@ -7,10 +7,6 @@ using Travelogic.Suppliers.Domain.Suppliers;
 
 namespace Travelogic.Suppliers.Application.Suppliers;
 
-/// <summary>
-/// Write side use cases. Each method validates, loads the aggregate, calls the domain, and commits in
-/// one unit of work. Expected failures come back as <see cref="Result"/> rather than exceptions.
-/// </summary>
 public sealed partial class SupplierCommands(
     ISupplierRepository repository,
     IUnitOfWork unitOfWork,
@@ -246,7 +242,6 @@ public sealed partial class SupplierCommands(
     private static Address ToAddress(AddressDto address) =>
         Address.Create(address.Line1, address.Line2, address.City, address.Region, address.Country, address.PostalCode);
 
-    /// <summary>Commits, turning known persistence failures into expected errors.</summary>
     private async Task<Error?> SaveAsync(Func<Error> onUniqueViolation, CancellationToken cancellationToken)
     {
         try

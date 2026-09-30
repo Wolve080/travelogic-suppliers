@@ -2,10 +2,7 @@ import { get, useFormContext } from 'react-hook-form'
 import { useReferenceData } from '../../../api/suppliers'
 import { Field, Input, Select, TextArea } from '../../../components/form'
 
-/**
- * The inputs for one service. Used for each row of the create form's services list (prefix
- * "services.0") and for the stand-alone add/edit service form (no prefix).
- */
+ // prefix is e.g. "services.0" inside the create form, empty in ServiceEditor
 export function ServiceFields({ prefix }: { prefix?: string }) {
   const {
     register,

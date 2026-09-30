@@ -2,8 +2,6 @@ import { createBrowserRouter, type RouteObject } from 'react-router'
 import { SupplierListPage } from '../features/suppliers/SupplierListPage'
 import { Layout, NotFoundPage } from './Layout'
 
-// The home screen loads eagerly. Form pages are split into their own chunks and fetched on navigation,
-// so the first load does not pay for the form and validation libraries.
 export const routes: RouteObject[] = [
   {
     element: <Layout />,

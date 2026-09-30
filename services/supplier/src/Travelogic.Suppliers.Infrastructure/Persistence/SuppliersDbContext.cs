@@ -9,10 +9,9 @@ namespace Travelogic.Suppliers.Infrastructure.Persistence;
 
 public sealed class SuppliersDbContext(DbContextOptions<SuppliersDbContext> options, TimeProvider timeProvider) : DbContext(options)
 {
-    /// <summary>The service owns this schema and nothing else. No other service reads or writes it.</summary>
     public const string Schema = "supplier";
 
-    /// <summary>SQL Server rowversion, kept out of the domain model as a shadow property.</summary>
+    // rowversion, shadow property
     public const string VersionProperty = "Version";
 
     internal static readonly JsonSerializerOptions EventSerializerOptions = new(JsonSerializerDefaults.Web)
@@ -44,11 +43,7 @@ public sealed class SuppliersDbContext(DbContextOptions<SuppliersDbContext> opti
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SuppliersDbContext).Assembly);
     }
 
-    /// <summary>
-    /// Adding, changing or removing a service is a change to the supplier aggregate. Marking the
-    /// supplier row as modified bumps its rowversion, so optimistic concurrency covers the whole
-    /// aggregate and not just the supplier's own columns.
-    /// </summary>
+    // Services are part of the supplier aggregate, so a change to one should bump the supplier's rowversion too.
     private void TouchAggregatesWithChangedServices(DateTimeOffset now)
     {
         var changedSupplierIds = ChangeTracker.Entries<SupplierService>()
@@ -81,11 +76,6 @@ public sealed class SuppliersDbContext(DbContextOptions<SuppliersDbContext> opti
         }
     }
 
-    /// <summary>
-    /// Transactional outbox: domain events are saved in the same transaction as the state change, so
-    /// an event is published if and only if the change was committed. A background processor
-    /// publishes them afterwards.
-    /// </summary>
     private void WriteDomainEventsToOutbox(DateTimeOffset now)
     {
         var aggregates = ChangeTracker.Entries<AggregateRoot>()

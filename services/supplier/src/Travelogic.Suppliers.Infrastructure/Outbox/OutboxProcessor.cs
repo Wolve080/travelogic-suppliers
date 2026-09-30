@@ -20,16 +20,12 @@ public sealed class OutboxOptions
     [Range(1, 1000)]
     public int BatchSize { get; init; } = 50;
 
-    /// <summary>After this many failures a message is left for an operator to inspect.</summary>
     [Range(1, 100)]
     public int MaxAttempts { get; init; } = 10;
 }
 
-/// <summary>
-/// Publishes outbox messages in the background. Rows are claimed with UPDLOCK/READPAST, so several
-/// instances of the service can run side by side without publishing the same message twice.
-/// Delivery is at least once: consumers should de-duplicate on the message id.
-/// </summary>
+// UPDLOCK/READPAST so more than one instance can run this without double publishing.
+// At-least-once delivery.
 internal sealed partial class OutboxProcessor(
     IServiceScopeFactory scopeFactory,
     IIntegrationEventPublisher publisher,
@@ -52,14 +48,13 @@ internal sealed partial class OutboxProcessor(
             {
                 return;
             }
-#pragma warning disable CA1031 // A failed batch must not kill the processor; it retries on the next tick.
+#pragma warning disable CA1031 // keep the loop alive, retry next tick
             catch (Exception ex)
 #pragma warning restore CA1031
             {
                 LogBatchFailed(ex);
             }
 
-            // A full batch probably means there is more waiting, so go again straight away.
             if (published < _options.BatchSize)
             {
                 try
@@ -79,7 +74,7 @@ internal sealed partial class OutboxProcessor(
         await using var scope = scopeFactory.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<SuppliersDbContext>();
 
-        // Explicit transactions must run inside the execution strategy when retries are enabled.
+        // needed because EnableRetryOnFailure is on
         var strategy = db.Database.CreateExecutionStrategy();
         return await strategy.ExecuteAsync(async ct =>
         {
@@ -103,7 +98,7 @@ internal sealed partial class OutboxProcessor(
                     message.ProcessedAtUtc = timeProvider.GetUtcNow();
                     message.LastError = null;
                 }
-#pragma warning disable CA1031 // One bad message must not block the rest of the batch.
+#pragma warning disable CA1031 // one bad message shouldn't block the batch
                 catch (Exception ex) when (ex is not OperationCanceledException)
 #pragma warning restore CA1031
                 {

@@ -5,7 +5,6 @@ using Travelogic.Suppliers.Application.Suppliers;
 
 namespace Travelogic.Suppliers.Api.Controllers;
 
-/// <summary>The services (accommodation, activities, tours, ...) a supplier offers.</summary>
 [ApiController]
 [ApiVersion(1)]
 [Route("api/v{version:apiVersion}/suppliers/{supplierId:guid}/services")]

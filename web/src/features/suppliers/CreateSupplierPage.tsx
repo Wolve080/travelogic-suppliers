@@ -16,7 +16,6 @@ import {
   type CreateSupplierFormValues,
 } from './schema'
 
-/** Captures a supplier and its services in one go, saved in a single API call. */
 export function CreateSupplierPage() {
   const navigate = useNavigate()
   const createSupplier = useCreateSupplier()
@@ -41,7 +40,7 @@ export function CreateSupplierPage() {
 
   return (
     <>
-      <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-800">
+      <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">
         <ArrowLeft className="size-4" aria-hidden /> All suppliers
       </Link>
       <PageHeader title="Add a supplier" description="Capture the supplier's details and the services they offer." />
@@ -57,8 +56,8 @@ export function CreateSupplierPage() {
           <Card className="p-6 sm:p-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h2 className="font-semibold text-stone-900">Services</h2>
-                <p className="mt-1 text-sm text-stone-500">
+                <h2 className="font-semibold text-slate-900">Services</h2>
+                <p className="mt-1 text-sm text-slate-500">
                   What the supplier sells, e.g. a night's accommodation or a half day tour. You can also add these later.
                 </p>
               </div>
@@ -72,15 +71,15 @@ export function CreateSupplierPage() {
             )}
 
             {services.fields.length === 0 ? (
-              <p className="mt-6 rounded-lg border border-dashed border-stone-300 px-4 py-8 text-center text-sm text-stone-500">
+              <p className="mt-6 rounded-lg border border-dashed border-slate-300 px-4 py-8 text-center text-sm text-slate-500">
                 No services added yet.
               </p>
             ) : (
               <ol className="mt-6 space-y-4">
                 {services.fields.map((field, index) => (
-                  <li key={field.id} className="rounded-lg border border-stone-200 bg-stone-50/60 p-4 sm:p-5">
+                  <li key={field.id} className="rounded-lg border border-slate-200 bg-slate-50/60 p-4 sm:p-5">
                     <div className="mb-4 flex items-center justify-between">
-                      <h3 className="text-sm font-semibold text-stone-700">Service {index + 1}</h3>
+                      <h3 className="text-sm font-semibold text-slate-700">Service {index + 1}</h3>
                       <Button variant="ghost" size="sm" onClick={() => services.remove(index)} aria-label={`Remove service ${index + 1}`}>
                         <Trash2 className="size-4" aria-hidden /> Remove
                       </Button>

@@ -3,7 +3,6 @@ using Travelogic.Suppliers.Domain.Common;
 
 namespace Travelogic.Suppliers.Domain.Suppliers;
 
-/// <summary>An amount in a specific ISO 4217 currency.</summary>
 public sealed record Money
 {
     private Money(decimal amount, string currency)
@@ -40,7 +39,6 @@ public sealed record Money
     public override string ToString() => string.Create(CultureInfo.InvariantCulture, $"{Currency} {Amount:0.00}");
 }
 
-/// <summary>Physical location of a supplier.</summary>
 public sealed record Address
 {
     private Address(string? line1, string? line2, string city, string? region, string country, string? postalCode)
@@ -75,7 +73,7 @@ public sealed record Address
             Guard.Optional(postalCode, "Postal code", 20));
 }
 
-/// <summary>How to reach a supplier. Format rules (valid e-mail, URL) live in the application validators.</summary>
+// Email/URL format is checked by the validators.
 public sealed record ContactDetails
 {
     private ContactDetails(string? email, string? phone, string? website)

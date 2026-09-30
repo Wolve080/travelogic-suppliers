@@ -21,7 +21,6 @@ internal sealed class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
 
         builder.Property<byte[]>(SuppliersDbContext.VersionProperty).IsRowVersion();
 
-        // Value objects map to columns on the supplier row (EF Core complex types), not separate tables.
         builder.ComplexProperty(s => s.Contact, contact =>
         {
             contact.Property(c => c.Email).HasColumnName("ContactEmail").HasMaxLength(256);
@@ -50,7 +49,6 @@ internal sealed class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
 
         builder.Ignore(s => s.DomainEvents);
 
-        // Names are unique (case insensitive under the default collation) so suppliers are not captured twice.
         builder.HasIndex(s => s.Name).IsUnique();
         builder.HasIndex(s => s.Type);
         builder.HasIndex(s => s.CreatedAtUtc);

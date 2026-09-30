@@ -22,7 +22,6 @@ export const referenceData: ReferenceData = {
 
 type Handler = (url: URL, init: RequestInit) => { status: number; body?: unknown } | undefined
 
-/** Replaces fetch with a tiny router over the API. Unmatched calls fail the test loudly. */
 export function mockApi(handler: Handler) {
   const fetchMock = vi.fn(async (input: RequestInfo | URL, init: RequestInit = {}) => {
     const url = new URL(String(input), 'http://localhost')

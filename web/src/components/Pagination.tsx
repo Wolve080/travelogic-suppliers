@@ -17,9 +17,9 @@ export function Pagination({ page, totalPages, totalCount, pageSize, onPageChang
 
   return (
     <nav aria-label="Pagination" className="mt-8 flex items-center justify-between">
-      <p className="text-sm text-stone-500">
-        Showing <span className="font-medium text-stone-700">{from}</span>–<span className="font-medium text-stone-700">{to}</span> of{' '}
-        <span className="font-medium text-stone-700">{totalCount}</span>
+      <p className="text-sm text-slate-500">
+        Showing <span className="font-medium text-slate-700">{from}</span>–<span className="font-medium text-slate-700">{to}</span> of{' '}
+        <span className="font-medium text-slate-700">{totalCount}</span>
       </p>
       <div className="flex gap-2">
         <Button variant="secondary" size="sm" disabled={page <= 1} onClick={() => onPageChange(page - 1)}>

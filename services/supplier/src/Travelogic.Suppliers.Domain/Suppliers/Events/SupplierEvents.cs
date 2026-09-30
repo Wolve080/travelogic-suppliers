@@ -2,9 +2,7 @@ using Travelogic.Suppliers.Domain.Common;
 
 namespace Travelogic.Suppliers.Domain.Suppliers.Events;
 
-// These events are written to the outbox in the same transaction as the change, then published for
-// other services (bookings, pricing, search) to consume. They carry just enough data for a consumer
-// to act without calling back into this service.
+// Written to the outbox and published to other services.
 
 public sealed record SupplierCreated(Guid AggregateId, string Name, SupplierType Type) : IDomainEvent;
 

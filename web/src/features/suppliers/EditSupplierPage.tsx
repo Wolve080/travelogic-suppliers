@@ -16,7 +16,7 @@ export function EditSupplierPage() {
 
   if (isPending) return <Spinner label="Loading supplier" />
   if (isError) return <ErrorState error={error} onRetry={() => refetch()} />
-  // Keyed on version so the form resets if a newer copy of the supplier is loaded.
+  // key on version so the form resets after a reload
   return <EditSupplierForm key={supplier.version} supplier={supplier} />
 }
 
@@ -36,7 +36,6 @@ function EditSupplierForm({ supplier }: { supplier: Supplier }) {
     setFormError(null)
     setConflict(false)
     try {
-      // The version we loaded goes back to the API, so we cannot silently overwrite someone else's change.
       await updateSupplier.mutateAsync(toUpdateRequest(values, supplier.version))
       navigate(`/suppliers/${supplier.id}`)
     } catch (error) {
@@ -51,7 +50,7 @@ function EditSupplierForm({ supplier }: { supplier: Supplier }) {
 
   return (
     <>
-      <Link to={`/suppliers/${supplier.id}`} className="mb-4 inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-800">
+      <Link to={`/suppliers/${supplier.id}`} className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">
         <ArrowLeft className="size-4" aria-hidden /> Back to {supplier.name}
       </Link>
       <PageHeader title={`Edit ${supplier.name}`} description="Services are managed from the supplier's page." />
@@ -73,11 +72,11 @@ function EditSupplierForm({ supplier }: { supplier: Supplier }) {
 
           <Card className="p-6 sm:p-8">
             <SupplierDetailsFields />
-            <label className="mt-2 flex items-center gap-3 border-t border-stone-200 pt-6 text-sm">
+            <label className="mt-2 flex items-center gap-3 border-t border-slate-200 pt-6 text-sm">
               <input type="checkbox" {...form.register('isActive')} className="size-4 rounded accent-brand-700" />
               <span>
-                <span className="font-medium text-stone-900">Active</span>
-                <span className="block text-stone-500">Inactive suppliers stay on record but should not be booked.</span>
+                <span className="font-medium text-slate-900">Active</span>
+                <span className="block text-slate-500">Inactive suppliers stay on record but should not be booked.</span>
               </span>
             </label>
           </Card>

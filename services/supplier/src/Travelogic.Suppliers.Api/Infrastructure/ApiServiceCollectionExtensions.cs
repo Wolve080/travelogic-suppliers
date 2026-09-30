@@ -19,8 +19,7 @@ internal static class ApiServiceCollectionExtensions
         services
             .AddControllers(options =>
             {
-                // FluentValidation in the application layer is the single source of validation rules, so
-                // stop MVC treating non-nullable properties as [Required] with its own, different messages.
+                // validation is done by FluentValidation, don't add implicit [Required] errors
                 options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
             })
             .AddJsonOptions(options =>
@@ -68,7 +67,6 @@ internal static class ApiServiceCollectionExtensions
             .AllowAnyMethod()
             .WithExposedHeaders(CorrelationIdMiddleware.HeaderName, "Location")));
 
-        // Behind a gateway or load balancer, trust X-Forwarded-* so links and logs show the original request.
         services.Configure<ForwardedHeadersOptions>(options =>
         {
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
@@ -79,10 +77,7 @@ internal static class ApiServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// Traces and metrics via OpenTelemetry. Exported over OTLP only when an endpoint is configured
-    /// (OTEL_EXPORTER_OTLP_ENDPOINT), e.g. to the Aspire dashboard, Jaeger or a collector.
-    /// </summary>
+    // OTLP export only when OTEL_EXPORTER_OTLP_ENDPOINT is set
     public static IServiceCollection AddObservability(this IServiceCollection services, IConfiguration configuration)
     {
         var otel = services.AddOpenTelemetry()

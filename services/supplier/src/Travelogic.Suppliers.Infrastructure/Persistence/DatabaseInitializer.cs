@@ -10,13 +10,9 @@ public sealed class DatabaseOptions
 {
     public const string SectionName = "Database";
 
-    /// <summary>
-    /// Apply EF Core migrations when the service starts. Convenient for local and demo environments;
-    /// in production, migrations would run as a separate deployment step (migration bundle).
-    /// </summary>
+    // dev/demo only, prod should run a migration bundle in the pipeline
     public bool MigrateOnStartup { get; init; }
 
-    /// <summary>Insert a few example suppliers when the database is empty.</summary>
     public bool SeedSampleData { get; init; }
 }
 
@@ -56,7 +52,6 @@ public static partial class DatabaseInitializer
     private static partial void LogSeeded(ILogger logger, int count);
 }
 
-/// <summary>Fictional suppliers so the demo has something to show on first run.</summary>
 internal static class SampleData
 {
     public static List<Supplier> Suppliers()

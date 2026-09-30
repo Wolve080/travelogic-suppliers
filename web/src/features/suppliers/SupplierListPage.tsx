@@ -17,7 +17,6 @@ const sortOptions: { value: string; label: string; sortBy: SupplierSortField; de
   { value: 'city', label: 'City', sortBy: 'City', descending: false },
 ]
 
-/** Home screen: every supplier, with search, filter, sort and paging kept in the URL so views can be shared. */
 export function SupplierListPage() {
   const [params, setParams] = useSearchParams()
   const search = params.get('q') ?? ''
@@ -50,7 +49,7 @@ export function SupplierListPage() {
       { replace: true },
     )
 
-  // Search as the user types, but only once they pause.
+  // debounce search
   const [searchInput, setSearchInput] = useState(search)
   const searchTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const onSearchChange = (value: string) => {
@@ -67,16 +66,11 @@ export function SupplierListPage() {
       <PageHeader
         title="Suppliers"
         description="Hotels, safari operators, transport companies and everyone else whose services we sell."
-        actions={
-          <ButtonLink to="/suppliers/new">
-            <Plus className="size-4" aria-hidden /> Add supplier
-          </ButtonLink>
-        }
       />
 
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-stone-400" aria-hidden />
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400" aria-hidden />
           <Input
             type="search"
             aria-label="Search suppliers"
@@ -112,8 +106,8 @@ export function SupplierListPage() {
           <div className="grid size-12 place-items-center rounded-full bg-brand-50 text-brand-700">
             <Store className="size-6" aria-hidden />
           </div>
-          <h2 className="mt-4 font-semibold text-stone-900">{filtered ? 'No suppliers match' : 'No suppliers yet'}</h2>
-          <p className="mt-1 max-w-sm text-sm text-stone-500">
+          <h2 className="mt-4 font-semibold text-slate-900">{filtered ? 'No suppliers match' : 'No suppliers yet'}</h2>
+          <p className="mt-1 max-w-sm text-sm text-slate-500">
             {filtered ? 'Try a different search or clear the filters.' : 'Add your first supplier and the services they offer.'}
           </p>
           {!filtered && (
@@ -124,7 +118,7 @@ export function SupplierListPage() {
         </Card>
       ) : (
         <>
-          <p className="mb-3 text-sm text-stone-500" aria-live="polite">
+          <p className="mb-3 text-sm text-slate-500" aria-live="polite">
             {data.totalCount} {data.totalCount === 1 ? 'supplier' : 'suppliers'}
           </p>
           <ul className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ${isPlaceholderData ? 'opacity-60' : ''}`}>

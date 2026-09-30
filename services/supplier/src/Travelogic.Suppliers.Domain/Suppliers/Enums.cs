@@ -1,9 +1,7 @@
 namespace Travelogic.Suppliers.Domain.Suppliers;
 
-// Enums are persisted and serialised as strings, so adding a value is a non-breaking change
-// for the database and for API consumers.
+// Stored and serialised as strings.
 
-/// <summary>The kind of business a supplier is.</summary>
 public enum SupplierType
 {
     Accommodation = 1,
@@ -15,7 +13,6 @@ public enum SupplierType
     Other = 99,
 }
 
-/// <summary>What a supplier's service is, e.g. an overnight stay or a half day game drive.</summary>
 public enum ServiceCategory
 {
     Accommodation = 1,
@@ -26,7 +23,6 @@ public enum ServiceCategory
     Other = 99,
 }
 
-/// <summary>What the price of a service is quoted against.</summary>
 public enum PricingUnit
 {
     PerPerson = 1,

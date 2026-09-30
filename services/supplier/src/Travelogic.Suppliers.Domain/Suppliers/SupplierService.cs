@@ -2,10 +2,6 @@ using Travelogic.Suppliers.Domain.Common;
 
 namespace Travelogic.Suppliers.Domain.Suppliers;
 
-/// <summary>
-/// Something a supplier sells, such as a night's accommodation or a half day tour (an activity).
-/// Only reachable through its <see cref="Supplier"/>.
-/// </summary>
 public sealed class SupplierService : Entity, IAuditable
 {
     public const int NameMaxLength = 200;
@@ -27,7 +23,7 @@ public sealed class SupplierService : Entity, IAuditable
         Update(name, category, description, price, pricingUnit, durationMinutes, capacity);
     }
 
-    // Required by EF Core.
+    // EF Core
     private SupplierService() { }
 
     public Guid SupplierId { get; private init; }
@@ -42,10 +38,10 @@ public sealed class SupplierService : Entity, IAuditable
 
     public PricingUnit PricingUnit { get; private set; }
 
-    /// <summary>How long the service lasts, e.g. 240 for a half day tour. Not relevant for accommodation.</summary>
+    // e.g. 240 for a half day tour
     public int? DurationMinutes { get; private set; }
 
-    /// <summary>Maximum number of guests per booking, when the supplier limits it.</summary>
+    // max guests
     public int? Capacity { get; private set; }
 
     public DateTimeOffset CreatedAtUtc { get; private set; }

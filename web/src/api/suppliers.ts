@@ -46,7 +46,6 @@ export function useSuppliers(params: SupplierListParams) {
   return useQuery({
     queryKey: supplierKeys.list(params),
     queryFn: () => supplierApi.list(params),
-    // Keep showing the current page while the next one loads, instead of flashing a spinner.
     placeholderData: keepPreviousData,
   })
 }
@@ -63,7 +62,6 @@ export function useReferenceData() {
   })
 }
 
-/** Looks up the display label for a reference data value, falling back to the raw value. */
 export function useLabels() {
   const { data } = useReferenceData()
   const find = (options: { value: string; label: string }[] | undefined, value: string) =>
@@ -108,7 +106,6 @@ export function useDeleteSupplier() {
   })
 }
 
-/** Add, update or remove a service, then refresh the supplier (its version changes too). */
 export function useServiceMutations(supplierId: string) {
   const queryClient = useQueryClient()
   const refresh = () => queryClient.invalidateQueries({ queryKey: supplierKeys.all })

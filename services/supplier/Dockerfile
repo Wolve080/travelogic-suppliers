@@ -3,7 +3,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-# Restore first, from the project files only, so the package layer is cached until dependencies change.
 COPY .editorconfig Directory.Build.props Directory.Packages.props ./
 COPY src/Travelogic.Suppliers.Domain/Travelogic.Suppliers.Domain.csproj src/Travelogic.Suppliers.Domain/
 COPY src/Travelogic.Suppliers.Application/Travelogic.Suppliers.Application.csproj src/Travelogic.Suppliers.Application/
@@ -17,7 +16,6 @@ RUN dotnet publish src/Travelogic.Suppliers.Api/Travelogic.Suppliers.Api.csproj 
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
-# Run as the image's built-in non-root user.
 USER $APP_UID
 ENV ASPNETCORE_HTTP_PORTS=8080
 EXPOSE 8080

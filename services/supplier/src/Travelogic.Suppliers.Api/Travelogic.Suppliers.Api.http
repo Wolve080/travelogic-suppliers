@@ -1,4 +1,3 @@
-# Requests for the VS Code REST Client / Visual Studio / Rider.
 @api = http://localhost:5080/api/v1
 
 ### List suppliers
@@ -30,7 +29,7 @@ Content-Type: application/json
 
 { "name": "Sunset Cruise", "category": "Tour", "price": 480, "currency": "ZAR", "pricingUnit": "PerPerson", "durationMinutes": 120 }
 
-### Validation errors come back as problem details
+### Validation error
 POST {{api}}/suppliers
 Content-Type: application/json
 

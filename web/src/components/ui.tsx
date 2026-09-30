@@ -6,9 +6,9 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-700 text-white shadow-sm hover:bg-brand-800 disabled:bg-brand-700/60',
-  secondary: 'bg-white text-stone-700 ring-1 ring-stone-300 shadow-sm hover:bg-stone-50',
-  ghost: 'text-stone-600 hover:bg-stone-100 hover:text-stone-900',
+  primary: 'bg-brand-600 text-white shadow-sm hover:bg-brand-700 disabled:bg-brand-600/60',
+  secondary: 'bg-white text-slate-700 ring-1 ring-slate-300 shadow-sm hover:bg-slate-50',
+  ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
   danger: 'bg-red-600 text-white shadow-sm hover:bg-red-700 disabled:bg-red-600/60',
 }
 
@@ -46,15 +46,15 @@ export function ButtonLink({ variant, size, className = '', ...props }: LinkProp
 }
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-xl border border-stone-200 bg-white shadow-sm ${className}`}>{children}</div>
+  return <div className={`rounded-xl border border-slate-200 bg-white shadow-sm ${className}`}>{children}</div>
 }
 
 export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'brand' | 'accent' | 'muted' }) {
   const tones = {
-    neutral: 'bg-stone-100 text-stone-700',
+    neutral: 'bg-slate-100 text-slate-700',
     brand: 'bg-brand-50 text-brand-700 ring-1 ring-inset ring-brand-200',
     accent: 'bg-accent-100 text-accent-600',
-    muted: 'bg-stone-100 text-stone-500',
+    muted: 'bg-slate-100 text-slate-500',
   }
   return (
     <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${tones[tone]}`}>
@@ -67,8 +67,8 @@ export function PageHeader({ title, description, actions }: { title: ReactNode; 
   return (
     <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-stone-900">{title}</h1>
-        {description && <p className="mt-1.5 text-stone-500">{description}</p>}
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-slate-900">{title}</h1>
+        {description && <p className="mt-1.5 text-slate-500">{description}</p>}
       </div>
       {actions && <div className="flex shrink-0 gap-2">{actions}</div>}
     </div>
@@ -77,7 +77,7 @@ export function PageHeader({ title, description, actions }: { title: ReactNode; 
 
 export function Spinner({ label = 'Loading' }: { label?: string }) {
   return (
-    <div role="status" className="flex items-center justify-center gap-2 py-16 text-stone-500">
+    <div role="status" className="flex items-center justify-center gap-2 py-16 text-slate-500">
       <Loader2 className="size-5 animate-spin" aria-hidden />
       <span>{label}…</span>
     </div>
@@ -88,9 +88,9 @@ export function ErrorState({ error, onRetry }: { error: unknown; onRetry?: () =>
   const message = error instanceof Error ? error.message : 'Something went wrong.'
   return (
     <Card className="flex flex-col items-center gap-3 px-6 py-12 text-center">
-      <AlertTriangle className="size-8 text-accent-600" aria-hidden />
-      <p className="font-medium text-stone-900">We couldn't load this</p>
-      <p className="max-w-md text-sm text-stone-500">{message}</p>
+      <AlertTriangle className="size-8 text-amber-500" aria-hidden />
+      <p className="font-medium text-slate-900">We couldn't load this</p>
+      <p className="max-w-md text-sm text-slate-500">{message}</p>
       {onRetry && (
         <Button variant="secondary" size="sm" onClick={onRetry}>
           Try again
@@ -104,7 +104,7 @@ export function Alert({ children, tone = 'error' }: { children: ReactNode; tone?
   const tones = {
     error: 'border-red-200 bg-red-50 text-red-800',
     success: 'border-brand-200 bg-brand-50 text-brand-800',
-    warning: 'border-accent-400/50 bg-accent-100 text-stone-800',
+    warning: 'border-amber-300 bg-amber-50 text-amber-900',
   }
   return (
     <div role={tone === 'error' ? 'alert' : 'status'} className={`rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}>

@@ -40,7 +40,7 @@ function SupplierDetail({ supplier }: { supplier: Supplier }) {
 
   return (
     <>
-      <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-800">
+      <Link to="/" className="mb-4 inline-flex items-center gap-1 text-sm text-slate-500 hover:text-slate-800">
         <ArrowLeft className="size-4" aria-hidden /> All suppliers
       </Link>
 
@@ -52,12 +52,12 @@ function SupplierDetail({ supplier }: { supplier: Supplier }) {
 
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-start gap-4">
-          <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-brand-700 text-white shadow-sm">
+          <div className="grid size-14 shrink-0 place-items-center rounded-xl bg-brand-500 text-white shadow-sm">
             <SupplierTypeIcon type={supplier.type} className="size-7" />
           </div>
           <div>
-            <h1 className="font-display text-3xl font-semibold tracking-tight text-stone-900">{supplier.name}</h1>
-            <div className="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-stone-500">
+            <h1 className="font-display text-3xl font-semibold tracking-tight text-slate-900">{supplier.name}</h1>
+            <div className="mt-1.5 flex flex-wrap items-center gap-2 text-sm text-slate-500">
               <span>{labels.supplierType(supplier.type)}</span>
               <span aria-hidden>·</span>
               <span>Added {formatDate(supplier.createdAtUtc)}</span>
@@ -77,7 +77,7 @@ function SupplierDetail({ supplier }: { supplier: Supplier }) {
 
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="space-y-5 p-6 lg:self-start">
-          {supplier.description && <p className="text-sm leading-relaxed text-stone-600">{supplier.description}</p>}
+          {supplier.description && <p className="text-sm leading-relaxed text-slate-600">{supplier.description}</p>}
           <dl className="space-y-3 text-sm">
             <InfoRow icon={<MapPin className="size-4" />} label="Address">
               {[supplier.address.line1, supplier.address.line2, supplier.address.city, supplier.address.region, supplier.address.postalCode, supplier.address.country]
@@ -131,11 +131,11 @@ function SupplierDetail({ supplier }: { supplier: Supplier }) {
 function InfoRow({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
   return (
     <div className="flex gap-3">
-      <dt className="mt-0.5 text-stone-400">
+      <dt className="mt-0.5 text-slate-400">
         {icon}
         <span className="sr-only">{label}</span>
       </dt>
-      <dd className="text-stone-700">{children}</dd>
+      <dd className="text-slate-700">{children}</dd>
     </div>
   )
 }
@@ -163,10 +163,10 @@ function ServicesPanel({ supplier }: { supplier: Supplier }) {
 
   return (
     <Card>
-      <div className="flex items-center justify-between border-b border-stone-200 px-6 py-4">
+      <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4">
         <div>
-          <h2 className="font-semibold text-stone-900">Services</h2>
-          <p className="text-sm text-stone-500">{supplier.services.length} offered</p>
+          <h2 className="font-semibold text-slate-900">Services</h2>
+          <p className="text-sm text-slate-500">{supplier.services.length} offered</p>
         </div>
         {editing?.mode !== 'add' && (
           <Button size="sm" onClick={() => setEditing({ mode: 'add' })}>
@@ -182,8 +182,8 @@ function ServicesPanel({ supplier }: { supplier: Supplier }) {
       )}
 
       {editing?.mode === 'add' && (
-        <div className="border-b border-stone-200 bg-stone-50/60 px-6 py-5">
-          <h3 className="mb-4 text-sm font-semibold text-stone-700">New service</h3>
+        <div className="border-b border-slate-200 bg-slate-50/60 px-6 py-5">
+          <h3 className="mb-4 text-sm font-semibold text-slate-700">New service</h3>
           <ServiceEditor
             submitLabel="Add service"
             onSubmit={async (request) => {
@@ -196,13 +196,13 @@ function ServicesPanel({ supplier }: { supplier: Supplier }) {
       )}
 
       {supplier.services.length === 0 && editing?.mode !== 'add' ? (
-        <p className="px-6 py-12 text-center text-sm text-stone-500">This supplier has no services yet.</p>
+        <p className="px-6 py-12 text-center text-sm text-slate-500">This supplier has no services yet.</p>
       ) : (
-        <ul className="divide-y divide-stone-100">
+        <ul className="divide-y divide-slate-100">
           {supplier.services.map((service) =>
             editing?.mode === 'edit' && editing.service.id === service.id ? (
-              <li key={service.id} className="bg-stone-50/60 px-6 py-5">
-                <h3 className="mb-4 text-sm font-semibold text-stone-700">Edit {service.name}</h3>
+              <li key={service.id} className="bg-slate-50/60 px-6 py-5">
+                <h3 className="mb-4 text-sm font-semibold text-slate-700">Edit {service.name}</h3>
                 <ServiceEditor
                   initial={service}
                   submitLabel="Save changes"
@@ -217,10 +217,10 @@ function ServicesPanel({ supplier }: { supplier: Supplier }) {
               <li key={service.id} className="group flex flex-col gap-3 px-6 py-4 sm:flex-row sm:items-center">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-medium text-stone-900">{service.name}</p>
+                    <p className="font-medium text-slate-900">{service.name}</p>
                     <Badge>{labels.serviceCategory(service.category)}</Badge>
                   </div>
-                  <p className="mt-1 text-sm text-stone-500">
+                  <p className="mt-1 text-sm text-slate-500">
                     {[
                       formatDuration(service.durationMinutes),
                       service.capacity && `up to ${service.capacity} guests`,
@@ -231,8 +231,8 @@ function ServicesPanel({ supplier }: { supplier: Supplier }) {
                   </p>
                 </div>
                 <div className="text-left sm:text-right">
-                  <p className="font-semibold text-stone-900">{formatPrice(service.price, service.currency)}</p>
-                  <p className="text-xs text-stone-500">{labels.pricingUnit(service.pricingUnit).toLowerCase()}</p>
+                  <p className="font-semibold text-slate-900">{formatPrice(service.price, service.currency)}</p>
+                  <p className="text-xs text-slate-500">{labels.pricingUnit(service.pricingUnit).toLowerCase()}</p>
                 </div>
                 <div className="flex gap-1 sm:opacity-0 sm:transition sm:group-focus-within:opacity-100 sm:group-hover:opacity-100">
                   <Button variant="ghost" size="sm" aria-label={`Edit ${service.name}`} onClick={() => setEditing({ mode: 'edit', service })}>
