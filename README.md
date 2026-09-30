@@ -18,7 +18,7 @@ It consists of:
 The only prerequisite is **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** (or Docker Engine with the Compose plugin).
 
 ```bash
-git clone <this-repo-url> travelogic
+git clone https://github.com/Wolve080/travelogic-suppliers.git travelogic
 cd travelogic
 docker compose up --build
 ```
