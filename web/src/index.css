@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* Brand: deep acacia green with a sunset ochre accent. */
+  --color-brand-50: #eef7f5;
+  --color-brand-100: #d5ebe6;
+  --color-brand-200: #a9d6cc;
+  --color-brand-500: #1f8a7f;
+  --color-brand-600: #16736a;
+  --color-brand-700: #0f5c55;
+  --color-brand-800: #0c4843;
+  --color-accent-100: #fdf1dc;
+  --color-accent-400: #f3c26b;
+  --color-accent-600: #c98a1c;
+
+  --color-surface: #fbfaf7;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-stone-800 antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+}

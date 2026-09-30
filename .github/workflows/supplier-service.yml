@@ -1,0 +1,38 @@
+name: Supplier service
+
+# Each deployable has its own pipeline and only runs when its own code changes.
+on:
+  push:
+    branches: [main]
+    paths: ['services/supplier/**', '.github/workflows/supplier-service.yml']
+  pull_request:
+    paths: ['services/supplier/**', '.github/workflows/supplier-service.yml']
+
+defaults:
+  run:
+    working-directory: services/supplier
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet restore
+      - run: dotnet build --configuration Release --no-restore
+      # Integration tests start SQL Server with Testcontainers; the runner has Docker available.
+      - run: dotnet test --configuration Release --no-build --logger trx --results-directory TestResults
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: supplier-test-results
+          path: services/supplier/TestResults
+
+  image:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --tag travelogic/supplier-api:${{ github.sha }} .

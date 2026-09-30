@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Travelogic.Suppliers.Api/Travelogic.Suppliers.Api.csproj" />
+    <Project Path="src/Travelogic.Suppliers.Application/Travelogic.Suppliers.Application.csproj" />
+    <Project Path="src/Travelogic.Suppliers.Domain/Travelogic.Suppliers.Domain.csproj" />
+    <Project Path="src/Travelogic.Suppliers.Infrastructure/Travelogic.Suppliers.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Travelogic.Suppliers.IntegrationTests/Travelogic.Suppliers.IntegrationTests.csproj" />
+    <Project Path="tests/Travelogic.Suppliers.UnitTests/Travelogic.Suppliers.UnitTests.csproj" />
+  </Folder>
+</Solution>

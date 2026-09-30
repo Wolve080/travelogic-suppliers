@@ -1,0 +1,43 @@
+# Requests for the VS Code REST Client / Visual Studio / Rider.
+@api = http://localhost:5080/api/v1
+
+### List suppliers
+GET {{api}}/suppliers?search=&sortBy=Name&page=1&pageSize=20
+
+### Create a supplier with services
+# @name create
+POST {{api}}/suppliers
+Content-Type: application/json
+
+{
+  "name": "Garden Route Adventures",
+  "type": "ActivityProvider",
+  "description": "Kayaking, hiking and canopy tours around Knysna.",
+  "contact": { "email": "hello@gardenroute.example", "phone": "+27 44 555 0123", "website": "https://gardenroute.example" },
+  "address": { "city": "Knysna", "region": "Western Cape", "country": "South Africa" },
+  "services": [
+    { "name": "Half Day Kayak Tour", "category": "Activity", "price": 650, "currency": "ZAR", "pricingUnit": "PerPerson", "durationMinutes": 240, "capacity": 12 },
+    { "name": "Canopy Tour", "category": "Activity", "price": 895, "currency": "ZAR", "pricingUnit": "PerPerson", "durationMinutes": 150 }
+  ]
+}
+
+### Get the supplier just created
+GET {{api}}/suppliers/{{create.response.body.id}}
+
+### Add a service
+POST {{api}}/suppliers/{{create.response.body.id}}/services
+Content-Type: application/json
+
+{ "name": "Sunset Cruise", "category": "Tour", "price": 480, "currency": "ZAR", "pricingUnit": "PerPerson", "durationMinutes": 120 }
+
+### Validation errors come back as problem details
+POST {{api}}/suppliers
+Content-Type: application/json
+
+{ "name": "", "type": "Safari", "address": { "city": "", "country": "South Africa" } }
+
+### Lookup values
+GET {{api}}/reference-data
+
+### Health
+GET http://localhost:5080/health/ready

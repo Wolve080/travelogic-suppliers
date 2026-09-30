@@ -1,0 +1,30 @@
+# The service is self-contained (it can live in its own repository), so it carries its own rules.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.cs]
+indent_size = 4
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_prefer_braces = true:warning
+dotnet_sort_system_directives_first = true
+
+# Type names that clash with VB keywords (Error, Option) are fine for a C# only service.
+dotnet_diagnostic.CA1716.severity = none
+# ASP.NET Core has no SynchronizationContext, so ConfigureAwait(false) adds noise without benefit.
+dotnet_diagnostic.CA2007.severity = none
+
+[tests/**.cs]
+# Test names use underscores for readability.
+dotnet_diagnostic.CA1707.severity = none
+
+[**/Migrations/**.cs]
+generated_code = true
