@@ -13,7 +13,19 @@ It consists of:
 
 ---
 
-## Quick start (Docker, recommended)
+## Quick start
+
+### One click
+
+| OS | Start | Stop |
+| --- | --- | --- |
+| Windows | double-click **`start.cmd`** | `stop.cmd` |
+| macOS | double-click **`start.command`** | `stop.command` |
+| Linux | `./start.command` | `./stop.command` |
+
+The script checks that Docker is installed (on Windows it offers to install Docker Desktop with winget), starts Docker Desktop if it isn't running, builds and starts everything, waits until the app responds and opens <http://localhost:3000> in your browser.
+
+### Manually
 
 The only prerequisite is **[Docker Desktop](https://www.docker.com/products/docker-desktop/)** (or Docker Engine with the Compose plugin).
 
@@ -101,6 +113,8 @@ GitHub Actions runs both suites on every push and pull request (`.github/workflo
 ```
 .
 ├── docker-compose.yml             # SQL Server + Supplier service + web app
+├── start.cmd / start.command      # one-click start (Windows / macOS, Linux)
+├── scripts/start.ps1              # what start.cmd runs
 ├── docs/architecture.md           # Design decisions (start here for the walkthrough)
 ├── services/
 │   └── supplier/                  # Self-contained microservice; could live in its own repo
